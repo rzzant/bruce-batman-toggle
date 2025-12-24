@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bruce Wayne / Batman</title>
+
+<style>
+/* ===== GLOBAL ===== */
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  transition:background 0.6s,color 0.6s;
+  overflow:hidden;
+}
+.bruce{background:#f5f5f5;color:#111;}
+.batman{background:radial-gradient(circle at top,#222,#000);color:#f1c40f;}
+
+.container{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+
+button{
+  padding:12px 24px;
+  font-size:16px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  margin-top:20px;
+}
+
+/* ===== AVATAR AREA ===== */
+.avatar-container{
+  position:absolute;
+  top:50%;
+  width:100%;
+  height:0;
+  transform:translateY(-50%);
+  pointer-events:none;
+  z-index:3;
+}
+
+/* ===== LEGO CHARACTER ===== */
+.lego{
+  position:absolute;
+  width:170px;
+  opacity:0;
+  transform:scale(0.85);
+  transition:opacity .5s ease, transform .5s ease;
+}
+
+/* FIXED SIDES */
+.bruce-avatar{ left:120px; }
+.batman-avatar{ right:120px; }
+
+/* ACTIVE STATES */
+.bruce .bruce-avatar,
+.batman .batman-avatar{
+  opacity:1;
+  transform:scale(1);
+  animation:idle 2.8s ease-in-out infinite;
+}
+
+@keyframes idle{
+  0%,100%{transform:scale(1) translateY(0);}
+  50%{transform:scale(1) translateY(-8px);}
+}
+
+/* ===== PARTS ===== */
+.head{
+  width:100px;
+  height:100px;
+  border-radius:12px;
+  border:5px solid #000;
+  margin:auto;
+}
+
+.torso{
+  width:150px;
+  height:120px;
+  margin:10px auto 0;
+  border-radius:12px;
+  border:5px solid #000;
+  position:relative;
+}
+
+.legs{
+  width:130px;
+  height:90px;
+  margin:8px auto 0;
+  border-radius:10px;
+  border:5px solid #000;
+}
+
+/* ARMS */
+.arm{
+  position:absolute;
+  width:22px;
+  height:80px;
+  background:inherit;
+  border:5px solid #000;
+  border-radius:12px;
+  top:20px;
+}
+.arm.left{left:-32px;transform:rotate(6deg);}
+.arm.right{right:-32px;transform:rotate(-6deg);}
+
+/* ===== BRUCE ===== */
+.bruce-head{background:#f1c27d;}
+.bruce-torso{background:#3b4a5a;}
+.bruce-legs{background:#555;}
+
+/* ===== BATMAN ===== */
+.batman-head{background:#111;}
+.batman-torso{background:#000;}
+.batman-legs{background:#000;}
+
+/* CAPE */
+.batman-torso::after{
+  content:"";
+  position:absolute;
+  top:6px;
+  left:-30px;
+  width:200px;
+  height:130px;
+  background:rgba(0,0,0,0.75);
+  border-radius:0 0 36px 36px;
+  z-index:-1;
+}
+
+/* BAT LOGO */
+.bat-logo{
+  width:50px;
+  height:25px;
+  background:#f1c40f;
+  border-radius:0 0 30px 30px;
+  position:absolute;
+  top:35px;
+  left:50%;
+  transform:translateX(-50%);
+}
+</style>
+</head>
+
+<body class="bruce">
+
+<div class="avatar-container">
+
+  <!-- BRUCE LEGO -->
+  <div class="lego bruce-avatar">
+    <div class="head bruce-head"></div>
+    <div class="torso bruce-torso">
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+    </div>
+    <div class="legs bruce-legs"></div>
+  </div>
+
+  <!-- BATMAN LEGO -->
+  <div class="lego batman-avatar">
+    <div class="head batman-head"></div>
+    <div class="torso batman-torso">
+      <div class="bat-logo"></div>
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+    </div>
+    <div class="legs batman-legs"></div>
+  </div>
+
+</div>
+
+<div class="container">
+  <h1 id="title">Bruce Wayne</h1>
+  <p id="quote">Philanthropist. Billionaire. Gotham citizen.</p>
+  <button onclick="toggleMode()">Become Batman</button>
+</div>
+
+<script>
+let isBatman=false;
+
+function toggleMode(){
+  const body=document.body;
+  const title=document.getElementById("title");
+  const quote=document.getElementById("quote");
+  const btn=document.querySelector("button");
+
+  if(!isBatman){
+    body.className="batman";
+    title.innerText="Batman";
+    quote.innerText="I am the night.";
+    btn.innerText="Return to Bruce Wayne";
+    isBatman=true;
+  }else{
+    body.className="bruce";
+    title.innerText="Bruce Wayne";
+    quote.innerText="Philanthropist. Billionaire. Gotham citizen.";
+    btn.innerText="Become Batman";
+    isBatman=false;
+  }
+}
+</script>
+
+</body>
+</html>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+
